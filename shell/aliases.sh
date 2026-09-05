@@ -3,16 +3,14 @@ cxta() {
   command -v "$1" > /dev/null && alias "$2"="$3"
 }
 
-shell="${HOME}/.dotfiles/shell"
-
-
 alias restart="exec bash"
 
 alias bashrc="${EDITOR} ~/.bashrc"
 alias envrc="${EDITOR} ~/.envrc"
 
-alias funcs="${EDITOR} ${shell}/funcs.sh"
-alias aliases="${EDITOR} ${shell}/aliases.sh"
+alias dotinit="${EDITOR} ${DOTSHELL}/init.sh"
+alias funcs="${EDITOR} ${DOTSHELL}/funcs.sh"
+alias aliases="${EDITOR} ${DOTSHELL}/aliases.sh"
 
 
 alias nv="nvim"

@@ -14,6 +14,7 @@ alias aliases="${EDITOR} ${DOTSHELL}/aliases.sh"
 
 
 alias nv="nvim"
+alias nvb="nvim -u ~/.config/nvim/basic.lua"
 alias rf='rm -rf'
 
 

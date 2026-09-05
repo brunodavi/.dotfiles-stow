@@ -3,7 +3,7 @@ cxta() {
   command -v "$1" > /dev/null && alias "$2"="$3"
 }
 
-shell="${HOME}/.dotfiles-stow/shell"
+shell="${HOME}/.dotfiles/shell"
 
 
 alias restart="exec bash"

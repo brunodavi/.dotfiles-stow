@@ -30,5 +30,3 @@ cxta eza ls 'eza \
 	--icons \
 	--group-directories-first \
 	--sort Extension'
-
-cxta alias cdb 'cd-bookmark'

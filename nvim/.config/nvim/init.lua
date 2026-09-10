@@ -1,1 +1,1 @@
-/home/brunodavi/.config/nvim/basic.lua
+require("config.lazy")

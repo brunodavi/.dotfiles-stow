@@ -1,1 +1,0 @@
-/home/brunodavi/.dotfiles/nvim/.config/nvim/basic.lua

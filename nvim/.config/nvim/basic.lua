@@ -16,8 +16,10 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 vim.g.netrw_banner = 0
-vim.g.netrw_winsize = 25
-vim.g.netrw_browse_split = 4
+vim.g.netrw_liststyle = 3 -- visualização em árvore (pastas expansíveis)
+vim.g.netrw_browse_split = 0 -- abre o arquivo na mesma janela; o netrw sai da tela
+vim.g.netrw_sort_by = "name"
+vim.g.netrw_sort_direction = "ascending"
 
 
 -- FUNÇÕES LUA
@@ -34,9 +36,14 @@ local function toggle_explorer()
   end
 
   if netrw_win then
-    vim.api.nvim_win_close(netrw_win, true)
+    if vim.api.nvim_get_current_win() == netrw_win then
+      -- volta para o buffer anterior em vez de fechar a última janela
+      vim.cmd("b#")
+    else
+      vim.api.nvim_win_close(netrw_win, true)
+    end
   else
-    vim.cmd("Lexplore")
+    vim.cmd("Explore")
   end
 end
 

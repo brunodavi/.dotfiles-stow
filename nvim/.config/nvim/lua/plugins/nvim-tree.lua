@@ -1,7 +1,6 @@
 return {
   "nvim-tree/nvim-tree.lua",
   cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-  dependencies = { "nvim-tree/nvim-web-devicons" },
   keys = {
     { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "nvimtree toggle window" },
   },

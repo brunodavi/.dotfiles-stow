@@ -3,11 +3,15 @@ return {
   cmd = { "NvimTreeToggle", "NvimTreeFocus" },
   dependencies = { "nvim-tree/nvim-web-devicons" },
   keys = {
-    { "<C-n>", "<cmd>NvimTreeToggle<CR>", desc = "nvimtree toggle window" },
-    { "<leader>e", "<cmd>NvimTreeFocus<CR>", desc = "nvimtree focus window" },
+    { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "nvimtree toggle window" },
   },
   config = function()
     require("nvim-tree").setup({
+      actions = {
+        open_file = {
+          quit_on_open = true,
+        },
+      },
       filters = { dotfiles = false },
       disable_netrw = true,
       hijack_cursor = true,

@@ -66,9 +66,11 @@ map("i", "jk", "<Esc>", { noremap = true })
 map("n", "<leader>bn", "<cmd>bnext<CR>")
 map("n", "<leader>bp", "<cmd>bprevious<CR>")
 
+-- Explorer
 map("n", "<leader>e", function()
   toggle_explorer(1)
 end)
+
 map("n", "<leader>E", function()
   toggle_explorer(3)
 end)
@@ -77,3 +79,7 @@ end)
 map({ "n", "v" }, "c", '"_c')
 map({ "n", "v" }, "C", '"_C')
 map({ "n", "v" }, "x", '"_x')
+
+map({ "n", "v" }, "<leader>y", '"+y')
+
+map("n", "q", "<Nop>")

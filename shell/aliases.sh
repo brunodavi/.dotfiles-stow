@@ -30,3 +30,5 @@ cxta eza ls 'eza \
 	--icons \
 	--group-directories-first \
 	--sort Extension'
+
+cxta eza lt 'eza --tree --git-ignore'

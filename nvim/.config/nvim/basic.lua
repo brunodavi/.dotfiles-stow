@@ -16,35 +16,39 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 vim.g.netrw_banner = 0
-vim.g.netrw_liststyle = 3 -- visualização em árvore (pastas expansíveis)
-vim.g.netrw_browse_split = 0 -- abre o arquivo na mesma janela; o netrw sai da tela
-vim.g.netrw_sort_by = "name"
-vim.g.netrw_sort_direction = "ascending"
-
+vim.g.netrw_sort_by = 'exten'
 
 -- FUNÇÕES LUA
 
-local function toggle_explorer()
-  local netrw_win = nil
-
+local function find_netrw_win()
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     local buf = vim.api.nvim_win_get_buf(win)
     if vim.bo[buf].filetype == "netrw" then
-      netrw_win = win
-      break
+      return win
     end
   end
+  return nil
+end
 
-  if netrw_win then
-    if vim.api.nvim_get_current_win() == netrw_win then
-      -- volta para o buffer anterior em vez de fechar a última janela
-      vim.cmd("b#")
-    else
-      vim.api.nvim_win_close(netrw_win, true)
-    end
+local function close_or_return(win)
+  if vim.api.nvim_get_current_win() == win then
+    -- volta para o buffer anterior em vez de fechar a última janela
+    vim.cmd("b#")
   else
-    vim.cmd("Explore")
+    vim.api.nvim_win_close(win, true)
   end
+end
+
+local function toggle_explorer(style)
+  local win = find_netrw_win()
+  if win then
+    close_or_return(win)
+    return
+  end
+  vim.g.netrw_liststyle = style
+  vim.w.netrw_liststyle = nil
+  vim.cmd("Explore")
+  vim.g.netrw_liststyle = 1
 end
 
 
@@ -62,7 +66,12 @@ map("i", "jk", "<Esc>", { noremap = true })
 map("n", "<leader>bn", "<cmd>bnext<CR>")
 map("n", "<leader>bp", "<cmd>bprevious<CR>")
 
-map("n", "<leader>e", toggle_explorer)
+map("n", "<leader>e", function()
+  toggle_explorer(1)
+end)
+map("n", "<leader>E", function()
+  toggle_explorer(3)
+end)
 
 -- Proteção do Clipboard
 map({ "n", "v" }, "c", '"_c')

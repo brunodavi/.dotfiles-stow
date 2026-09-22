@@ -6,6 +6,7 @@ APPS=(
   neovim
   python3
   eza
+  starship
 )
 
 CONFIGS=(

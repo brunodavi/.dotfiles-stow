@@ -32,3 +32,5 @@ cxta eza ls 'eza \
 	--sort Extension'
 
 cxta eza lt 'eza --tree --git-ignore'
+
+cxta proot-distro alpine 'proot-distro login --isolated alpine'

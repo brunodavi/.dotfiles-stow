@@ -1,4 +1,4 @@
-# Dotfiles With Stow
+# Dotfiles
 
 Simple dotfiles for termux and linux
 
@@ -6,5 +6,5 @@ Simple dotfiles for termux and linux
 ```bash
 git clone https://github.com/brunodavi/.dotfiles-stow ~/.dotfiles
 cd ~/.dotfiles
-./install.sh
+python install.py
 ```

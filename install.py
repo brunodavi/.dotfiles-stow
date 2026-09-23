@@ -8,18 +8,13 @@ import sys
 REPO_ROOT = pathlib.Path(__file__).resolve().parent
 HOME = pathlib.Path.home()
 
-EXCLUDES = [
-    ".git",
-    ".gitignore",
-    "README.md",
-    "LICENSE",
-    "install.py",
-    "install.sh",
-    "__pycache__",
-    ".venv",
-    "venv",
-    "shell",
-]
+LINKS = {
+    "config/nvim": ".config/nvim",
+    "config/starship.toml": ".config/starship.toml",
+    "git/gitconfig": ".gitconfig",
+}
+
+DEFAULT_HOOKS = ["shell"]
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Dotfiles installer")
@@ -33,18 +28,7 @@ def normalize_module_name(name):
         normalized = normalized[4:]
     if normalized.startswith("."):
         normalized = normalized[1:]
-    return normalized
-
-def get_available_modules():
-    modules = {}
-    for entry in REPO_ROOT.iterdir():
-        if entry.name in EXCLUDES:
-            continue
-        if not entry.name.startswith("dot_"):
-            continue
-        normalized = normalize_module_name(entry.name)
-        modules[normalized] = entry
-    return modules
+    return normalized.lower()
 
 def create_symlink(source, target, dry_run):
     if dry_run:
@@ -78,36 +62,59 @@ def load_hook_and_run(hook_path, dry_run):
     print(f"Running hook {hook_path}")
     module.main(dry_run)
 
+def find_hook_for_source(source):
+    if source.is_dir():
+        candidate = source / "hook.py"
+        if candidate.exists():
+            return candidate
+    else:
+        candidate = source.parent / "hook.py"
+        if candidate.exists():
+            return candidate
+    return None
+
 def install():
     args = parse_arguments()
     dry_run = args.dry_run
     selected = args.modules
-    available = get_available_modules()
     if selected:
         normalized_selected = [normalize_module_name(s) for s in selected]
         filtered = {}
-        shell_requested = False
-        for name in normalized_selected:
-            if name == "shell":
-                shell_requested = True
-                continue
-            if name in available:
-                filtered[name] = available[name]
-            else:
-                print(f"Warning: unknown module '{name}' skipped")
-        modules_to_install = filtered
-        install_shell = shell_requested
+        matched_selected = set()
+        for source_key, target_rel in LINKS.items():
+            source_path = pathlib.Path(source_key)
+            candidates = {
+                source_key.lower(),
+                source_path.name.lower(),
+                source_path.stem.lower(),
+                source_path.parent.name.lower(),
+            }
+            for sel in normalized_selected:
+                if sel in candidates or sel == source_path.name.lower() or sel == source_path.stem.lower() or sel in source_key.lower():
+                    filtered[source_key] = target_rel
+                    matched_selected.add(sel)
+                    break
+        for sel in normalized_selected:
+            if sel not in matched_selected and sel not in [normalize_module_name(h) for h in DEFAULT_HOOKS]:
+                print(f"Warning: unknown module '{sel}' skipped")
+        links_to_install = filtered
+        matched_hooks = [h for h in DEFAULT_HOOKS if normalize_module_name(h) in normalized_selected]
+        hooks_to_run = matched_hooks
     else:
-        modules_to_install = available
-        install_shell = True
-    for name, source in sorted(modules_to_install.items()):
-        target = HOME / f".{name}"
+        links_to_install = LINKS
+        hooks_to_run = DEFAULT_HOOKS
+    for source_key, target_rel in sorted(links_to_install.items()):
+        source = REPO_ROOT / source_key
+        target = HOME / target_rel
+        if not source.exists():
+            print(f"Warning: source {source} does not exist skipped")
+            continue
         create_symlink(source, target, dry_run)
-        hook_path = source / "hook.py" if source.is_dir() else None
-        if hook_path is not None and hook_path.exists():
+        hook_path = find_hook_for_source(source)
+        if hook_path is not None:
             load_hook_and_run(hook_path, dry_run)
-    if install_shell:
-        hook_path = REPO_ROOT / "shell" / "hook.py"
+    for hook_name in hooks_to_run:
+        hook_path = REPO_ROOT / hook_name / "hook.py"
         if hook_path.exists():
             load_hook_and_run(hook_path, dry_run)
     if dry_run:

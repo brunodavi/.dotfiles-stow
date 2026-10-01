@@ -5,6 +5,8 @@ import pathlib
 import shutil
 import sys
 
+from shared.utils import create_symlink
+
 REPO_ROOT = pathlib.Path(__file__).resolve().parent
 HOME = pathlib.Path.home()
 
@@ -14,7 +16,7 @@ LINKS = {
     "git/gitconfig": ".gitconfig",
 }
 
-DEFAULT_HOOKS = ["shell"]
+DEFAULT_HOOKS = ["shell", "termux"]
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Dotfiles installer")
@@ -29,24 +31,6 @@ def normalize_module_name(name):
     if normalized.startswith("."):
         normalized = normalized[1:]
     return normalized.lower()
-
-def create_symlink(source, target, dry_run):
-    if dry_run:
-        print(f"Would link {source} -> {target}")
-        return
-    target.parent.mkdir(parents=True, exist_ok=True)
-    if target.is_symlink() or target.exists():
-        if target.is_symlink() and target.resolve() == source.resolve():
-            print(f"Symlink already correct {target} -> {source}")
-            return
-        if target.is_symlink():
-            target.unlink()
-        elif target.is_dir():
-            shutil.rmtree(target)
-        else:
-            target.unlink()
-    target.symlink_to(source)
-    print(f"Linked {source} -> {target}")
 
 def load_hook_and_run(hook_path, dry_run):
     spec = importlib.util.spec_from_file_location("hook", hook_path)

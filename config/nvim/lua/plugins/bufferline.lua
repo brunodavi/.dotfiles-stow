@@ -5,7 +5,7 @@ return {
     { "<tab>", "<cmd>BufferLineCycleNext<CR>", desc = "buffer goto next" },
     { "<S-tab>", "<cmd>BufferLineCyclePrev<CR>", desc = "buffer goto prev" },
     { "<leader>x", "<cmd>BufferLineCloseOthers<CR>", desc = "buffer close others" },
-    { "<leader>c", "<cmd>bd<CR>", desc = "buffer close current" },
+    { "<leader>cc", "<cmd>bd<CR>", desc = "buffer close current" },
   },
   config = function()
     local bufferline = require "bufferline"

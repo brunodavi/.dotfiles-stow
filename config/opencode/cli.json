@@ -1,6 +1,10 @@
 {
   "$schema": "https://opencode.ai/v2/cli.json",
-  "animations": true,
+  "animations": false,
+  "cursor": {
+    "style": "block",
+    "blinking": false
+  },
   "theme": {
     "mode": "dark",
     "name": "tokyonight"
@@ -39,6 +43,9 @@
   },
   "prompt": {
     "paste": "compact"
+  },
+  "keybinds": {
+    "agent.cycle": "shift+tab,tab"
   },
   "experimental": {
     "new-designs": true

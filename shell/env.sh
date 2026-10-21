@@ -7,6 +7,6 @@ unalias c
 export PATH="$PATH:${HOME}/.dotfiles/scripts"
 
 export PATH="${PATH}:${HOME}/.local/bin"
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+export PATH="/opt/nvim-linux-x86_64/bin:/opt/nvim-linux-arm64/bin:$PATH"
 
 source ~/.envrc

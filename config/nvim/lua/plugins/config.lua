@@ -6,6 +6,7 @@ return {
     config = function()
       require("config.options")
       require("config.keymaps")
+      require("config.advanced.disable_italic")
     end,
   },
 }

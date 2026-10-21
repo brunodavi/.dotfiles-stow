@@ -13,6 +13,7 @@ HOME = pathlib.Path.home()
 LINKS = {
     "config/nvim": ".config/nvim",
     "config/starship.toml": ".config/starship.toml",
+    "config/tmux": ".config/tmux",
     "git/gitconfig": ".gitconfig",
 }
 

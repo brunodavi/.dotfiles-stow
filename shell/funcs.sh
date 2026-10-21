@@ -73,3 +73,22 @@ line() {
 sedn() {
   sed ':a;N;$!h;'$@
 }
+
+
+# tmux: entra na sessão (cria se não existir). uso: ta [nome]
+ta() {
+  command -v tmux > /dev/null || { echo "tmux não instalado"; return 1; }
+  tmux new-session -A -s "${1:-main}"
+}
+
+# lista as sessões abertas
+tls() {
+  command -v tmux > /dev/null || { echo "tmux não instalado"; return 1; }
+  tmux list-sessions 2> /dev/null || echo "tmux: nenhuma sessão aberta"
+}
+
+# encerra uma sessão pelo nome (padrão: main)
+tkill() {
+  command -v tmux > /dev/null || { echo "tmux não instalado"; return 1; }
+  tmux kill-session -t "${1:-main}"
+}

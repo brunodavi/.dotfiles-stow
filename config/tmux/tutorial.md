@@ -121,6 +121,11 @@ Regra de bolso:
 
 · Termux se fechou por engano? As sessões sobreviveram:
   abra o proot, dá um `ta` que você volta.
+· Morte total (Termux exterminado pelo Android)? O
+  tmux-resurrect consegue recriar o que estava aberto:
+  `ta` (volta ao tmux) e Ctrl+a C-r restaura a última
+  salva — o continuum salva sozinho a cada 15 min.
+  Ctrl+a C-s salva na hora se quiser garantir.
 · Esqueceu o atalho? Ctrl+a ? mostra o cheat sheet
   (e Ctrl+a / lista TODOS os atalhos do tmux).
 · Truque bom: no meio do trabalho, Ctrl+a N cria uma

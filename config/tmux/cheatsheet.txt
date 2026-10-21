@@ -48,6 +48,12 @@ P      escolher buffer pra colar
 :      linha de comando do tmux
 q      fechar popup / mode copia
 
+--- PERSISTENCIA (disco) ---
+C-s    salvar tudo em disco (resurrect)
+C-r    restaurar a ultima salva
+       (continuum salva sozinho a cada
+        15 min e restaura ao abrir o tmux)
+
 --- CONFIG ---
 r      recarregar tmux.conf
 e      editar tmux.conf

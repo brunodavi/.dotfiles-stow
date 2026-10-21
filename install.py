@@ -14,6 +14,8 @@ LINKS = {
     "config/nvim": ".config/nvim",
     "config/starship.toml": ".config/starship.toml",
     "config/tmux": ".config/tmux",
+    "config/opencode/opencode.json": ".config/opencode/opencode.json",
+    "config/opencode/cli.json": ".config/opencode/cli.json",
     "git/gitconfig": ".gitconfig",
 }
 

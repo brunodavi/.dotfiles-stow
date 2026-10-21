@@ -48,7 +48,7 @@
     "agent.cycle": "shift+tab,tab"
   },
   "experimental": {
-    "new-designs": true
+    "new-designs": false
   },
   "highlights": false
 }

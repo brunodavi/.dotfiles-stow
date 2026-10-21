@@ -76,9 +76,17 @@ sedn() {
 
 
 # tmux: entra na sessão (cria se não existir). uso: ta [nome]
+# dentro do tmux, cria a sessão em background e já troca pra ela
+# (evita "sessions should be nested with care")
 ta() {
   command -v tmux > /dev/null || { echo "tmux não instalado"; return 1; }
-  tmux new-session -A -s "${1:-main}"
+  local alvo="${1:-main}"
+  if [ -n "$TMUX" ]; then
+    tmux new-session -d -s "$alvo" 2> /dev/null
+    tmux switch-client -t "$alvo"
+  else
+    tmux new-session -A -s "$alvo"
+  fi
 }
 
 # lista as sessões abertas

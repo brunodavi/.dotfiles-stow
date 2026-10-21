@@ -1,0 +1,54 @@
+TMUX cheat sheet  |  prefixo = Ctrl+a
+(aninhado: Ctrl+a a manda o C-a adiante)
+
+--- SESSOES ---
+s      listar / trocar de sessao
+C-f    buscar sessao pelo nome
+C-c    nova sessao na hora
+N      nova sessao (pergunta nome)
+BTab   ultima sessao usada
+T      renomear sessao
+K      encerrar sessao
+d      detach (tudo continua)
+shell: ta [nome] / tls / tkill
+
+--- JANELAS ---
+c      nova janela
+C-h    janela anterior
+C-l    janela proxima
+Tab    ultima janela usada
+1..9   ir pra janela 1-9 (0 = 10)
+x      fechar painel/janela
+
+--- PAINEL ---
+|      dividir lado a lado
+-      dividir cima / baixo
+hjkl   mover (Alt+hjkl sem prefixo)
+HJKL   redimensionar (repita)
+z      zoom no painel
+< >    trocar painel de lugar
+m      mouse liga / desliga
+o / q  outro painel / ver numeros
+C-l    limpa tela+historico
+       (sem prefixo)
+
+--- COPIA / COLA ---
+Enter  modo copia (estilo vi)
+v      selecionar
+C-v    selecao retangular
+V      linha inteira
+y      copiar (pro clipboard)
+H / L  inicio / fim da linha
+p      colar a ultima copia
+P      escolher buffer pra colar
+
+--- AJUDA ---
+?      este cheat sheet
+/      todos os atalhos do tmux
+:      linha de comando do tmux
+q      fechar popup / mode copia
+
+--- CONFIG ---
+r      recarregar tmux.conf
+e      editar tmux.conf
+       (recarrega ao fechar)
